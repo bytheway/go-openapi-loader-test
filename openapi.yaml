@@ -1,0 +1,94 @@
+x-google-endpoints:
+  - name: bravo-api.endpoints.dev-srplatform.cloud.goog
+    allowCors: true
+host: bravo-api.endpoints.dev-srplatform.cloud.goog
+swagger: '2.0'
+info:
+  description: Demo API for Bravo team testing
+  title: BRAVO Team API
+  version: 0.0.0
+basePath: /bravo
+x-google-allow: all
+consumes:
+  - application/json
+produces:
+  - application/json
+schemes:
+  - http
+  - https
+paths:
+  /bravo-api:
+    get:
+      description: List expansions
+      operationId: default
+      responses:
+        200:
+          description: Default Path
+          schema:
+            $ref: '#/definitions/heartbeatResponse'
+        403:
+          description: Forbidden
+        500:
+          description: Internal Server Error
+  /bravo-api/healthN:
+    get:
+      description: N Health
+      operationId: healthN
+      responses:
+        200:
+          description: Default Path
+          schema:
+            $ref: '#/definitions/heartbeatResponse'
+        403:
+          description: Forbidden
+        500:
+          description: Internal Server Error
+  /bravo-api/internal/heartbeat:
+    get:
+      description: Heartbeat endpoint
+      operationId: heartbeat
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Health Status
+          schema:
+            $ref: '#/definitions/heartbeatResponse'
+  /bravo-api/internal/version:
+    get:
+      description: Version endpoint
+      operationId: version
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Version Information
+  /bravo-api/internal/cpuload:
+    get:
+      description: CPU Load endpoint
+      operationId: cpuload
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Run a CPU load
+
+definitions:
+  heartbeatResponse:
+    properties:
+      Status:
+        type: string
+      ProjectID:
+        type: string
+      Version:
+        type: string
+securityDefinitions:
+  okta_jwt:
+    authorizationUrl: "http://okta.example.com"
+    flow: "implicit"
+    type: "oauth2"
+    scopes:
+      com.sr.messaging: 'View and manage messaging content, criteria and definitions.'
+    x-google-issuer: "http://okta.example.com"
+    x-google-jwks_uri: "http://okta.example.com/v1/keys"
+    x-google-audiences: "http://api.example.com"
