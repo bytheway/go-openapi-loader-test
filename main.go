@@ -10,7 +10,7 @@ import (
 func main() {
 	doc, err := loads.Spec("./openapi.yaml")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Load Failed: %v", err)
 	}
 	an := analysis.New(doc.Spec()) // Analyze spec
 	err = analysis.Flatten(analysis.FlattenOpts{
@@ -18,6 +18,6 @@ func main() {
 		Expand: true,
 	})
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("Flatten Failed: %v", err)
 	}
 }
